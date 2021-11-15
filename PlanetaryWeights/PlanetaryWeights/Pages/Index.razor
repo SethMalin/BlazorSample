@@ -1,0 +1,56 @@
+﻿@page "/"
+
+<h1>Let's calculate your weight on different planets!</h1>
+
+<div>How much do you weigh here on Earth?</div>
+<input type="text" class="form-control" @bind="Pounds" />
+<div>And on what planet would you like to know your weight?</div>
+<select class="form-control" @bind="ChosenPlanet">
+    @foreach (string planet in planets)
+    {
+        <option value="@planet">@planet</option>
+
+    }
+</select>
+
+@switch (ChosenPlanet)
+{
+    case "Mercury":
+        WeightOnPlanet = Mass * 3.7;
+        break;
+    case "Venus":
+        WeightOnPlanet = Mass * 8.87;
+        break;
+    case "Mars":
+        WeightOnPlanet = Mass * 3.711;
+        break;
+    case "Jupiter":
+        WeightOnPlanet = Mass * 24.79;
+        break;
+    case "Saturn":
+        WeightOnPlanet = Mass * 10.44;
+        break;
+    case "Uranus":
+        WeightOnPlanet = Mass * 8.69;
+        break;
+    case "Neptune":
+        WeightOnPlanet = Mass * 11.15;
+        break;
+}
+
+
+        <div>You would weigh @WeightOnPlanetFormatted lbs on @ChosenPlanet</div>
+
+
+        @code{
+            public int Pounds { get; set; }
+            public double Mass => Pounds / 9.81;
+            public string ChosenPlanet { get; set; }
+            public double WeightOnPlanet { get; set; }
+            public string WeightOnPlanetFormatted => WeightOnPlanet.ToString("0.####");
+            public List<string> planets = new List<string>() { "Mercury", "Venus", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune" };
+
+
+
+
+}
